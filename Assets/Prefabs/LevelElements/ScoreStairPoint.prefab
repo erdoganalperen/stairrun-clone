@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4140336539397615294}
+  - component: {fileID: 5316308966397337923}
   m_Layer: 0
   m_Name: ScoreStairPoint
   m_TagString: Untagged
@@ -30,3 +31,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5316308966397337923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483502657164149909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449236c0d7686654cabd8d2e7ddfc50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stairTextCube: {fileID: 4759889966547175384, guid: 74669c69c20777243b0e326496d4dcc3,
+    type: 3}
+  stairFillCube: {fileID: 0}
+  numberOfStairs: 15
+  positionOffsetMultiplier: 2
+  uvOffset: {x: 0.01, y: 0}
+  stairColor: {r: 1, g: 0.3537736, b: 0.3537736, a: 0}
