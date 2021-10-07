@@ -7,9 +7,10 @@ TagManager:
   - TurnRight
   - TurnLeft
   - Obstacle
-  - Step
+  - StairBrick
   - Ground
   - ScoreCube
+  - Step
   layers:
   - Default
   - TransparentFX

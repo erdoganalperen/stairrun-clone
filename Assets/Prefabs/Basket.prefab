@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4240764856847451912}
   m_Layer: 0
-  m_Name: SpawnPoint2
+  m_Name: SpawnPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8818870783615854236}
   m_Layer: 0
-  m_Name: SpawnPoint1
+  m_Name: SpawnPoint0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,6 +568,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 93272621122966978}
+  - component: {fileID: 1312898393}
   m_Layer: 0
   m_Name: Basket
   m_TagString: Untagged
@@ -593,3 +594,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1312898393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9060201080352565282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c962ec2aaebe1c6499517b8ba7f49497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  point0: {fileID: 8818870783615854236}
+  point1: {fileID: 4240764856847451912}
+  basketBrick: {fileID: 7183432700071436649, guid: 7bfeb3beb082d2f4aae39c89d6394fb1,
+    type: 3}
+  _addOrder: 0

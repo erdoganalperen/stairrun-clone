@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 778129861305457858}
   m_Layer: 0
   m_Name: StepCube
-  m_TagString: Step
+  m_TagString: StairBrick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

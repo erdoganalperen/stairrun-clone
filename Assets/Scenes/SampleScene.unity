@@ -158,6 +158,7 @@ MonoBehaviour:
   levels:
   - {fileID: 2767212239289203245, guid: db981a90f1cbcba42b9a4162b77a5909, type: 3}
   - {fileID: 2767212239289203245, guid: 7aa4be87311cfe14aa6c2e59c2245c0f, type: 3}
+  LevelsInfo: []
 --- !u!4 &181809329
 Transform:
   m_ObjectHideFlags: 0
@@ -405,10 +406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29af4444e57f43a9aa4e3c59503223d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  step: {fileID: 7183432700071436649, guid: 7bfeb3beb082d2f4aae39c89d6394fb1, type: 3}
-  stepParent: {fileID: 1429489340}
-  sp1: {fileID: 1000503829}
-  sp2: {fileID: 904559653}
   _uiManager: {fileID: 297315770}
 --- !u!1 &705507993
 GameObject:
@@ -502,12 +499,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!4 &904559653 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4240764856847451912, guid: 56f138b95b75fe64eb73249ba2a568e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 5082887794536471176}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,12 +582,6 @@ Transform:
   m_Father: {fileID: 5006512736209864593}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 20, y: -45, z: 0}
---- !u!4 &1000503829 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8818870783615854236, guid: 56f138b95b75fe64eb73249ba2a568e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 5082887794536471176}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1109507014
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,12 +612,6 @@ Transform:
   m_Father: {fileID: 5006512736209864593}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1429489340 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9060201080352565282, guid: 56f138b95b75fe64eb73249ba2a568e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 5082887794536471176}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1590901744
 GameObject:
   m_ObjectHideFlags: 0

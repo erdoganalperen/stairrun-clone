@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CustomClasses;
 using UnityEngine;
 using UnityEngine.UI;
 using Utility;
@@ -10,15 +11,12 @@ public class LevelManager : MonoBehaviour
     private float _offsetY;
     private float _offsetZ;
     [HideInInspector]public GameObject _scoreStairPoint;
-
     private int level = 1;
     public List<GameObject> levels;
     private GameObject currentLevel;
+    public List<Level> LevelsInfo;
     void Start()
     {
-        _offsetZ =scoreTextCube.transform.localScale.z;
-        _offsetY =scoreTextCube.transform.localScale.y;
-        
         CreateLevel(level);
     }
 
