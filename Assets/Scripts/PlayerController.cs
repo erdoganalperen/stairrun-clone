@@ -17,28 +17,31 @@ public class PlayerController : MonoBehaviour
     public float speedZ;
     public float speedY;
     public bool isGrounded;
+    public float rotateTime;
     private bool _leftClick;
 
+    //
     public PlayerState playerState = PlayerState.Starting;
 
-//
+    //
     private BasketController _basketController;
 
     //
-    private PlayerState lastState;
+    private PlayerState _lastState;
     public Animator playerAnimator;
-    public GameObject riseStepParent;
+    public GameObject riseStairParent;
     public GameObject riseStair;
-    private float riseStepTime;
-    private GameObject rsp;
-    private int basketStairReset;
+    private float _riseStepTime;
+    private GameObject _rsp;
     public Transform finishCamPos;
+    public Transform finishRunCamPos;
     public GameObject camera;
     private Vector3 defPos;
     private Quaternion defRot;
     private Vector3 camDefPos;
     private Quaternion camDefRot;
-
+    private float finishMaxDistance;
+    private bool canRun;
     private void Start()
     {
         _basketController = GetComponentInChildren<BasketController>();
@@ -46,8 +49,8 @@ public class PlayerController : MonoBehaviour
         camDefRot = camera.transform.rotation;
         defPos = transform.position;
         defRot = transform.rotation;
-        lastState = playerState;
-        basketStairReset = 0;
+        _lastState = playerState;
+        canRun = true;
     }
 
     private void Update()
@@ -57,9 +60,15 @@ public class PlayerController : MonoBehaviour
         if (playerState == PlayerState.Finished)
         {
             camera.transform.position = Vector3.Lerp(camera.transform.position, finishCamPos.transform.position,
-                Time.deltaTime * 3);
+                Time.deltaTime * 2);
             camera.transform.rotation = Quaternion.Lerp(camera.transform.rotation, finishCamPos.transform.rotation,
-                Time.deltaTime * 3);
+                Time.deltaTime * 2);
+        }else if (playerState==PlayerState.FinishRun)
+        {
+            camera.transform.position = Vector3.Lerp(camera.transform.position, finishRunCamPos.transform.position,
+                Time.deltaTime * 2);
+            camera.transform.rotation = Quaternion.Lerp(camera.transform.rotation, finishRunCamPos.transform.rotation,
+                Time.deltaTime * 2);
         }
     }
 
@@ -69,42 +78,48 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
         if (_leftClick && _basketController.currentBrickNumber != 0)
         {
-            if (playerState != PlayerState.Rising)
-            {
-                if (rsp != null)
-                    Destroy(rsp.gameObject);
-                rsp = new GameObject("riseStepParent");
-                rsp.transform.position = riseStepParent.transform.position;
-                playerState = PlayerState.Rising;
-            }
-
             if (playerState == PlayerState.FinishRun)
             {
-                if (rsp == null)
+                if (_rsp == null)
                 {
-                    rsp = new GameObject("riseStepParent");
-                    rsp.transform.position = riseStepParent.transform.position;
+                    _rsp = new GameObject("riseStepParent");
+                    _rsp.transform.position = riseStairParent.transform.position;
                 }
+            }
+            else if (playerState != PlayerState.Rising)
+            {
+                if (_rsp != null)
+                    Destroy(_rsp.gameObject);
+                _rsp = new GameObject("riseStepParent");
+                _rsp.transform.position = riseStairParent.transform.position;
+                playerState = PlayerState.Rising;
             }
         }
         else
         {
             if (playerState == PlayerState.Rising)
             {
-                riseStepParent.transform.DetachChildren();
+                riseStairParent.transform.DetachChildren();
+                playerState = PlayerState.Falling;
+            }else if (playerState == PlayerState.FinishRun)
+            {
                 playerState = PlayerState.Falling;
             }
+
             if (isGrounded)
             {
                 playerState = PlayerState.Running;
             }
-         
         }
-        
-        Run();
-        switch (playerState)    
+
+        if (canRun)
+        {
+            Run();
+        }
+        switch (playerState)
         {
             case PlayerState.Running:
                 break;
@@ -144,9 +159,9 @@ public class PlayerController : MonoBehaviour
         if (_basketController.Remove())
         {
             transform.Translate(Vector3.up * (Time.fixedDeltaTime * speedY));
-            var position = riseStepParent.transform.position;
-            var brick = Instantiate(riseStair, position, Quaternion.identity, rsp.transform);
-            brick.transform.localRotation = riseStepParent.transform.rotation;
+            var position = riseStairParent.transform.position;
+            var brick = Instantiate(riseStair, position, Quaternion.identity, _rsp.transform);
+            brick.transform.localRotation = riseStairParent.transform.rotation;
             brick.transform.position = position;
         }
         else
@@ -158,16 +173,34 @@ public class PlayerController : MonoBehaviour
 
     void FinishRise()
     {
-        transform.Translate(Vector3.up * (Time.fixedDeltaTime * speedY));
-        Rise();
+        // transform.Translate(Vector3.up * (Time.fixedDeltaTime * speedY));
+        finishMaxDistance += (Vector3.forward * (speedZ * Time.fixedDeltaTime)).z;
+        if (finishMaxDistance > 29)
+        {
+            canRun = false;
+            Fall();
+        }
+        else
+        {
+            Rise();
+        }
     }
 
+    public void TranslateToScoreCube(Transform other)
+    {
+        if (_rsp!=null)
+        {
+            Destroy(_rsp.gameObject);
+        }
+        transform.position = other.position + new Vector3(0, other.localScale.y, 0);
+    }
     void Fall()
     {
         if (isGrounded)
         {
             playerState = PlayerState.Running;
         }
+
         print("fall");
         transform.Translate(Vector3.down * (Time.fixedDeltaTime * speedY));
     }
@@ -180,9 +213,9 @@ public class PlayerController : MonoBehaviour
 
     void AnimationControl()
     {
-        if (lastState != playerState)
+        if (_lastState != playerState)
         {
-            lastState = playerState;
+            _lastState = playerState;
             switch (playerState)
             {
                 case PlayerState.Running:

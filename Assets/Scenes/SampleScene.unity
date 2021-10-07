@@ -150,15 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f05bd176aa0124bbdd4e31350b4fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreTextCube: {fileID: 4840135626659907547, guid: bb28e03fe57e77b4f800f5ccdd410865,
-    type: 3}
-  scoreCube: {fileID: 7656519099122866742, guid: 3602a9c434823d94c89120afdb6e968a,
-    type: 3}
-  _scoreStairPoint: {fileID: 0}
   levels:
   - {fileID: 2767212239289203245, guid: db981a90f1cbcba42b9a4162b77a5909, type: 3}
   - {fileID: 2767212239289203245, guid: 7aa4be87311cfe14aa6c2e59c2245c0f, type: 3}
   LevelsInfo: []
+  maxDistance: 0
 --- !u!4 &181809329
 Transform:
   m_ObjectHideFlags: 0
@@ -328,6 +324,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &365136200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 365136201}
+  m_Layer: 0
+  m_Name: FinishRunCameraPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &365136201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365136200}
+  m_LocalRotation: {x: -0.18223555, y: 0, z: 0, w: 0.9832549}
+  m_LocalPosition: {x: 0, y: -2, z: -20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5006512736209864593}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: -21, y: 0, z: 0}
 --- !u!1 &569605716
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29af4444e57f43a9aa4e3c59503223d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiManager: {fileID: 297315770}
+  uiManager: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,13 +601,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.16042991, y: -0.37686962, z: 0.066452235, w: 0.9098438}
-  m_LocalPosition: {x: 14.82, y: 14.26, z: -11.66}
+  m_LocalRotation: {x: 0.25304604, y: -0.20287405, z: 0.05435995, w: 0.9443807}
+  m_LocalPosition: {x: 9.71, y: 16.21, z: -14.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5006512736209864593}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20, y: -45, z: 0}
+  m_LocalEulerAnglesHint: {x: 30.000002, y: -24.248001, z: 0}
 --- !u!1 &1109507014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,6 +1307,7 @@ Transform:
   - {fileID: 1737744307}
   - {fileID: 1109507015}
   - {fileID: 227866424}
+  - {fileID: 365136201}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1535,13 +1562,14 @@ MonoBehaviour:
   speedZ: 0
   speedY: 0
   isGrounded: 1
+  rotateTime: 0
   playerState: 0
   playerAnimator: {fileID: 3166231815163128555}
-  riseStepParent: {fileID: 1109507014}
+  riseStairParent: {fileID: 1109507014}
   riseStair: {fileID: 7183432700071436649, guid: 0042b98315961154c8411f0769cb2037,
     type: 3}
-  stairCount: 0
   finishCamPos: {fileID: 227866424}
+  finishRunCamPos: {fileID: 365136201}
   camera: {fileID: 963194225}
 --- !u!4 &6939401399614314548
 Transform:

@@ -15,7 +15,7 @@ namespace Utility
 
         //
         public int numberOfStairs;
-
+        //
         public float positionOffsetMultiplier; //scale difference for imports
 
         //

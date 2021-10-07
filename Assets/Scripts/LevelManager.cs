@@ -6,20 +6,16 @@ using Utility;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject scoreTextCube;
-    public GameObject scoreCube;
-    private float _offsetY;
-    private float _offsetZ;
-    [HideInInspector]public GameObject _scoreStairPoint;
     private int level = 1;
     public List<GameObject> levels;
     private GameObject currentLevel;
     public List<Level> LevelsInfo;
+    public float maxDistance;
     void Start()
     {
         CreateLevel(level);
     }
-
+    
     void CreateLevel(int l)
     {
         currentLevel = Instantiate(levels[l-1], Vector3.zero, Quaternion.identity);

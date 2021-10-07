@@ -11,7 +11,8 @@ public class PlayerOnTriggerController : MonoBehaviour
     private BasketController _basketController;
     public UIManager uiManager;
     private PlayerController _playerController;
-    
+
+    private int _overlaps ;
     private void Start()
     {
         _playerController = GetComponent<PlayerController>();
@@ -30,13 +31,16 @@ public class PlayerOnTriggerController : MonoBehaviour
             }
         }
     }
-
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Ground"))
         {
-            GetComponent<PlayerController>().isGrounded = false;
-            print("qwe");
+            _overlaps--;
+            if (_overlaps == 0)
+            {
+                GetComponent<PlayerController>().isGrounded = false;
+            }
         }
     }
 
@@ -44,28 +48,27 @@ public class PlayerOnTriggerController : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
+            _overlaps++;
             GetComponent<PlayerController>().isGrounded = true;
         }
 
         if (other.CompareTag("TurnLeft"))
         {
-            _playerController.Rotate(Vector3.left, 1);
+            _playerController.Rotate(Vector3.left, _playerController.rotateTime);
         }
         else if (other.CompareTag("TurnRight"))
         {
-            _playerController.Rotate(Vector3.right, 1);
+            _playerController.Rotate(Vector3.right, _playerController.rotateTime);
         }
         else if (other.CompareTag("StairBrick"))
         {
             Destroy(other.gameObject);
-            _basketController.AddBrickOrder();
+            _basketController.AddBrickOrder(2);
         }
         else if (other.CompareTag("ScoreCube"))
         {
             GetComponent<PlayerController>().playerState = PlayerState.Finished;
-            print(other.transform.position + new Vector3(0, other.transform.localScale.y / 2, 0));
-            transform.position = other.transform.position + new Vector3(0, other.transform.localScale.y / 2, 0);
-            uiManager.NextLevel();
+            _playerController.TranslateToScoreCube(other.transform);
         }
         else if (other.CompareTag("Finish"))
         {
