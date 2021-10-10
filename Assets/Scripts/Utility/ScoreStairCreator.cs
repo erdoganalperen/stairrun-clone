@@ -27,7 +27,7 @@ namespace Utility
         {
             _pos = Vector3.zero;
             _rot = transform.localRotation;
-            _positionOffset = new Vector3(0, transform.localScale.y, transform.localScale.z) * positionOffsetMultiplier;
+            _positionOffset = new Vector3(0, stairTextCube.transform.localScale.y, stairTextCube.transform.localScale.z) * positionOffsetMultiplier;
             //
             _uvPos = Vector2.zero;
             //

@@ -6,32 +6,21 @@ using UnityEngine.TextCore;
 
 public class PlayerOnTriggerController : MonoBehaviour
 {
-    private float _turnCd = 1f;
-    private bool _turned = false;
+    private bool _canTurn;
     private BasketController _basketController;
     public UIManager uiManager;
     private PlayerController _playerController;
 
-    private int _overlaps ;
+    private int _overlaps;
+
     private void Start()
     {
         _playerController = GetComponent<PlayerController>();
         _basketController = GetComponentInChildren<BasketController>();
+
+        _canTurn = true;
     }
 
-    private void FixedUpdate()
-    {
-        if (_turned)
-        {
-            _turnCd -= Time.fixedDeltaTime;
-            if (_turnCd <= 0)
-            {
-                _turnCd = 1f;
-                _turned = false;
-            }
-        }
-    }
-    
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Ground"))
@@ -41,6 +30,11 @@ public class PlayerOnTriggerController : MonoBehaviour
             {
                 GetComponent<PlayerController>().isGrounded = false;
             }
+        }
+
+        if (other.CompareTag("TurnLeft") || other.CompareTag("TurnRight"))
+        {
+            _canTurn = true;
         }
     }
 
@@ -52,29 +46,37 @@ public class PlayerOnTriggerController : MonoBehaviour
             GetComponent<PlayerController>().isGrounded = true;
         }
 
-        if (other.CompareTag("TurnLeft"))
+        if (_canTurn)
         {
-            _playerController.Rotate(Vector3.left, _playerController.rotateTime);
+            if (other.CompareTag("TurnLeft"))
+            {
+                var c = other.GetComponent<TurnCube>();
+                _playerController.TurnLeft(c.axis, c.targetPosition);
+                _canTurn = false;
+            }
+            else if (other.CompareTag("TurnRight"))
+            {
+                var c = other.GetComponent<TurnCube>();
+                _playerController.TurnRight(c.axis, c.targetPosition);
+                _canTurn = false;
+            }
         }
-        else if (other.CompareTag("TurnRight"))
-        {
-            _playerController.Rotate(Vector3.right, _playerController.rotateTime);
-        }
-        else if (other.CompareTag("StairBrick"))
+
+        if (other.CompareTag("StairBrick"))
         {
             Destroy(other.gameObject);
-            _basketController.AddBrickOrder(2);
+            _basketController.AddBrickOrder();
         }
-        else if (other.CompareTag("ScoreCube"))
+
+        if (other.CompareTag("ScoreCube"))
         {
             GetComponent<PlayerController>().playerState = PlayerState.Finished;
             _playerController.TranslateToScoreCube(other.transform);
+            uiManager.NextLevel();
         }
         else if (other.CompareTag("Finish"))
         {
             GetComponent<PlayerController>().playerState = PlayerState.FinishRun;
         }
-        
     }
-    
 }

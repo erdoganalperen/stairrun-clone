@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float speedZ;
     public float speedY;
     public bool isGrounded;
+    public bool isTurning;
     public float rotateTime;
     private bool _leftClick;
 
@@ -175,7 +176,7 @@ public class PlayerController : MonoBehaviour
     {
         // transform.Translate(Vector3.up * (Time.fixedDeltaTime * speedY));
         finishMaxDistance += (Vector3.forward * (speedZ * Time.fixedDeltaTime)).z;
-        if (finishMaxDistance > 29)
+        if (finishMaxDistance > 29) // max score stairs - one cube half
         {
             canRun = false;
             Fall();
@@ -205,10 +206,19 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.down * (Time.fixedDeltaTime * speedY));
     }
 
-    public void Rotate(Vector3 rot, float time)
+    public void TurnLeft(Axis ax,float axValue)
     {
-        var quaternion = Quaternion.Euler(rot);
-        RotateOverTime(quaternion, time);
+        Rotate(transform.right*-1,rotateTime,ax,axValue);
+    }
+    public void TurnRight(Axis ax,float axValue)
+    {
+        
+        Rotate(transform.right,rotateTime,ax,axValue);
+    }
+    private void Rotate(Vector3 rot, float time,Axis ax,float axValue)
+    {
+        isTurning = true;
+        RotateOverTime(rot, time,ax,axValue);
     }
 
     void AnimationControl()
@@ -235,24 +245,52 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void RotateOverTime(Quaternion targetRotation, float time)
+    void RotateOverTime(Vector3 targetRotation, float time,Axis ax,float axValue)
     {
-        StartCoroutine(RotateOverTimeCoroutine(targetRotation, time));
+        StartCoroutine(RotateOverTimeCoroutine(targetRotation, time,ax,axValue));
     }
 
-    private IEnumerator RotateOverTimeCoroutine(Quaternion targetRotation, float duration)
+    private IEnumerator RotateOverTimeCoroutine(Vector3 targetRotation, float duration,Axis ax,float axValue)
     {
-        var startRotation = transform.rotation;
+        var startRotation = Quaternion.LookRotation(transform.forward);
         var timePassed = 0f;
+        Quaternion targetRot=Quaternion.LookRotation(targetRotation);
+        var currentPosition = transform.position;
         while (timePassed < duration)
         {
             var factor = timePassed / duration;
-            transform.rotation = Quaternion.Lerp(startRotation, targetRotation, factor);
+            transform.rotation = Quaternion.Lerp(startRotation, targetRot, factor);
+            //
+            // if (ax==Axis.X)
+            // {
+            //     currentPosition.x = axValue;
+            //     var targetPos=Vector3.Lerp(transform.position, currentPosition , factor);
+            //     transform.position = targetPos;
+            // }else if (ax==Axis.Z)
+            // {
+            //     currentPosition.z = axValue;
+            //     var targetPos=Vector3.Lerp(transform.position, currentPosition , factor);
+            //     transform.position = targetPos;
+            // }
+            //
             timePassed += Time.fixedDeltaTime;
             yield return null;
         }
-
-        transform.rotation = targetRotation;
+        transform.rotation= targetRot;
+        //
+        // if (ax==Axis.X)
+        // {
+        //     var pos = transform.position;
+        //     pos.x = axValue;
+        //     transform.position=pos;
+        // }else if (ax==Axis.Z)
+        // {
+        //     var pos = transform.position;
+        //     pos.z = axValue;
+        //     transform.position=pos;
+        // }
+        //
+        isTurning = false;
     }
 
     public void Reset()

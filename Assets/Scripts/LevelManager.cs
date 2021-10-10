@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     void CreateLevel(int l)
     {
         currentLevel = Instantiate(levels[l-1], Vector3.zero, Quaternion.identity);
-        currentLevel.transform.position += new Vector3(0, -10,10);
+        currentLevel.transform.position += new Vector3(0, -10,0);
     }
 
     public bool NextLevel()

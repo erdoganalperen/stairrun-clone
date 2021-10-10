@@ -55,12 +55,12 @@ public class BasketController : MonoBehaviour
         
     }
 
-    private int basketBricktoStairMultiplier = 2;
+    private int _basketBricktoStairMultiplier = 2;
     public bool Remove()
     {
         if(currentBrickNumber==0)
             return false;
-        if (basketBricktoStairMultiplier==0)
+        if (_basketBricktoStairMultiplier==0)
         {
             var destroyedChild = transform.GetChild(transform.childCount - 1);
             if (currentBrickNumber%2==0)
@@ -69,11 +69,11 @@ public class BasketController : MonoBehaviour
             }
             Destroy(destroyedChild.gameObject);
             currentBrickNumber--;
-            basketBricktoStairMultiplier = 1;
+            _basketBricktoStairMultiplier = 2;
         }
         else
         {
-            basketBricktoStairMultiplier--;
+            _basketBricktoStairMultiplier--;
         }
         return true;
     }   

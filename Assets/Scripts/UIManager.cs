@@ -3,7 +3,7 @@
 public class UIManager : MonoBehaviour
 {
     public GameObject startText;
-    public GameObject nextLevelText;
+    [SerializeField]private GameObject nextLevelText;
     private bool gameStarted = false;
     private bool nextLevel = false;
     public PlayerController _playerController;
